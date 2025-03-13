@@ -1,0 +1,7 @@
+:hover {
+    svg {
+      path {
+        stroke: #f30ee4;
+      }  
+    }
+  }
