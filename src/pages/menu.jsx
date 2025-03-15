@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Box, HStack, Separator, Flex, Text, Input, Grid, GridItem, VStack } from '@chakra-ui/react'
 import { Button } from '../components/ui/button'
 import { IoMdAdd } from "react-icons/io";
-import menuData from "../Data/menuData";
 import { InputGroup } from "@/components/ui/input-group"
 import {
   DialogActionTrigger,
@@ -19,6 +18,7 @@ import { useState } from "react"
 import MenuCategory from '../components/ui/MenuCategory';
 import { LuSearch } from "react-icons/lu"
 import menuItemData from '@/Data/menuItemData';
+import category from "../Data/menuData";
 import MenuItem from '@/components/ui/MenuItem';
 import {
   FileUploadList,
@@ -28,23 +28,35 @@ import {
 import { HiUpload } from 'react-icons/hi';
 import Cart from '@/components/ui/Cart';
 
-export default function menu() {
+export default function Menu() {
 
   const [open, setOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(1)
   const [formData, setFormData] = useState('')
   const [cart,setCart] = useState([])
-  const filteredItems = selectedCategory === 1 ? menuItemData : menuItemData.filter(item => item.categoryID === Number(selectedCategory));
+  const [menu,setMenu] = useState(menuItemData)
+  const [menuData, setMenuData] = useState(category)
+  const [inputValue,setInputValue] = useState('')
+  const filteredItems = selectedCategory === 1 ? menu : menu.filter(item => item.categoryID === Number(selectedCategory));
+
+
 
 
   const handleMenuSubmit = () => {
     console.log(formData)
   }
 
+  const handleInput = (e)=> {
+    const value = e.target.value.toLowerCase().trim();
+    setInputValue(value);
+    const filtered = menuItemData.filter(item => item.title.toLowerCase().includes(value))
+    setMenu(filtered)
+
+  }
+
 
   const addToCart = (item)=> {
     setCart((prevCart)=>{
-      console.log(prevCart)
       const existingItem = prevCart.find( cartItem => cartItem.categoryID === item.categoryID)
       if (existingItem) {
         console.log(`existing item ${existingItem}`)
@@ -57,6 +69,15 @@ export default function menu() {
     })
   }
 
+
+  const deleteItem = (id)=> {
+    setMenu(prevMenu => prevMenu.filter(item => item.categoryID !== id))
+    setCart(prevCart => prevCart.filter(item => item.categoryID !== id))
+    setMenuData(prevMenu => prevMenu.map(item => item.id === id ? {...item, count: Math.max(0, item.count - 1)} : item))
+    console.log("clicked")
+  }
+
+
   const updateCartItemQuantity = (id, amount) => {
     setCart(prevCart => prevCart.map(item => 
       item.categoryID === id
@@ -67,6 +88,7 @@ export default function menu() {
 
   const deleteCartItem = (id)=> {
     setCart(prevCart => prevCart.filter(item => item.categoryID !== id))
+
   }
 
 
@@ -136,7 +158,7 @@ export default function menu() {
               flex="1"
               startElement={<LuSearch />}
             >
-              <Input placeholder="Search Product By Name" bg='#FDFDFD' border="1px solid #E3E3E3" p={5} borderRadius={100} />
+              <Input onChange={handleInput} value={inputValue} placeholder="Search Product By Name" bg='#FDFDFD' border="1px solid #E3E3E3" p={5} borderRadius={100} />
             </InputGroup>
           </HStack>
 
@@ -150,6 +172,7 @@ export default function menu() {
                     price={item.price}
                     image={item.image}
                     category={item.category}
+                    onDeleteItems = {()=> deleteItem(item.categoryID)}
                     onAddToCart = {()=> addToCart(item)}
                     />)) : <Text>No items available</Text>
               }

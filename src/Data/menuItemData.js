@@ -9,7 +9,7 @@ const menuItemData = [{
 },
 {categoryID: 2,
     category: "Coffee",
-    title: "Coffee",
+    title: "Pizza",
     basePrice : 15.00,
     price : 15.00,
     image:"https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -30,7 +30,7 @@ const menuItemData = [{
 },
 {categoryID: 5,
     category: "Coffee",
-    title: "Coffee",
+    title: "pasta",
     basePrice : 15.00,
     price : 15.00,
     image:"https://plus.unsplash.com/premium_photo-1695456065048-52a053ce9dd2?q=80&w=3164&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

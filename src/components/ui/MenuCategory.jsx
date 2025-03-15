@@ -4,6 +4,7 @@ import { Button, Image, Text } from '@chakra-ui/react'
 export default function MenuCategory({ title, count, icon, setSelectedCategory, id, selectedCategory }) {
 
   const isSelected = id === selectedCategory;
+  
   return (
     <>
       <Button
