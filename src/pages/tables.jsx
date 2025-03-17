@@ -38,7 +38,7 @@ export default function Tables() {
 
     return (
       <>
-            <Box w='100%' >
+            <Box w='100%' p={5} pb={2} >
               <HStack justifyContent='space-between'>
                 <HStack>
                   <h2 style={{ fontWeight: "400" }}>
@@ -84,7 +84,7 @@ export default function Tables() {
               </HStack>
             </Box>
   
-            <Box width='100%' height="80vh" overflowY="auto" pr={5}>
+            <Box width='100%' height="80vh" overflowY="auto" pr={5} pl={5}>
               <Grid templateColumns="repeat(5, 1fr)" gap={2}>
                 {
                   tables.length > 0 ? (tables.map((item) =>

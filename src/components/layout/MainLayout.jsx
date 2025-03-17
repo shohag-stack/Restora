@@ -9,7 +9,7 @@ export default function MainLayout() {
     <>
         <Box w="100%" bg="#F9F9F9" height="100vh" overflow='hidden'>
             <Grid
-            templateColumns="repeat(6, 1fr)" gap="4"
+            templateColumns="repeat(6, 1fr)"
             >
                 <GridItem colSpan={1}>
                     <Sidebar/>

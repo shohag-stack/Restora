@@ -1,15 +1,30 @@
 import React, { useState } from 'react'
-import { Image, HStack, Text, VStack, IconButton, Box, Heading, Separator, RadioGroup, } from '@chakra-ui/react'
+import { Image, HStack, Text, VStack, IconButton, Box, Heading, Separator, RadioGroup, Input,Button, CloseButton, Dialog, Portal,Grid } from '@chakra-ui/react'
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { Button } from '../../components/ui/button';
+import { IoMdAdd } from "react-icons/io";
+import {
+  DialogActionTrigger,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog"
+import Table from '@/components/ui/table';
+import {tables} from "../../Data/tables"
 
-export default function Cart({ cart, updateCartItemQuantity,deleteCartItem }) {
+export default function Cart({ cart, updateCartItemQuantity, deleteCartItem }) {
 
   const subTotal = cart.reduce((acc, item) => acc + item.basePrice * item.quantity, 0)
   const tax = subTotal * 0.10;
   const discount = subTotal * 0.15;
   const total = subTotal + tax - discount;
   const [value, setValue] = useState('cash')
+  const [formData, setFormData] = useState('')
+  const [open, setOpen] = useState(false)
 
   const items = [
     { label: "CASH", value: "1" },
@@ -21,32 +36,85 @@ export default function Cart({ cart, updateCartItemQuantity,deleteCartItem }) {
   return (
     <>
       <Box p={5}>
-        <Heading>
+
+        <Box>
+        <VStack>
+          <HStack>
+            <Input type='text' name='name' placeholder="Customer Name"></Input>
+            <Input type="number" placeholder="+88"></Input>        
+          </HStack>
+          <HStack w="100%">
+            
+          <DialogRoot scrollBehavior='inside' size="cover" placement="center" lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
+          <DialogTrigger asChild>
+            <Button visual="outline" size='sm' display='flex' justifyContent='center' alignItems='center' cursor='pointer'>
+              <IoMdAdd /> Table
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add Customer</DialogTitle>
+            </DialogHeader>
+            <DialogBody>
+              <Box width='100%' height="80vh" overflowY="auto" pr={5} pl={5}>
+                            <Grid templateColumns="repeat(5, 1fr)" gap={2}>
+                              {
+                                tables.length > 0 ? (tables.map((item) =>
+                                  <Table
+                                    key={item.id}
+                                    title={item.title}
+                                    status={item.status}
+                                    icon={item.image}
+                                    seats = {item.seats}
+                                    onDeleteItems = {()=> deleteItem(item.categoryID)}
+                                    onAddToCart = {()=> addToCart(item)}
+                                    />)) : <Text>No items available</Text>
+                              }
+                            </Grid>
+                          </Box>
+            </DialogBody>
+            <DialogFooter>
+              <DialogActionTrigger asChild>
+                <Button visual="outline" >Cancel</Button>
+              </DialogActionTrigger>
+              <Button visual="solid" >Save</Button>
+            </DialogFooter>
+            <DialogCloseTrigger />
+          </DialogContent>
+        </DialogRoot>
+
+
+            <Input type="number" placeholder="+88"></Input>        
+          </HStack>
+        </VStack>
+        </Box>
+        
+        <Heading pb={2}>
           Cart Details
         </Heading>
 
-        <Box maxH='350px' overflow='auto'>
+        <Box h='350px' overflow='auto'>
           {cart.length === 0 ? (
             <Text>No items in cart</Text>
 
           ) : (
             cart.map(item => (
-              <HStack key={item.id} justifyContent='space-between' py={4} >
+              <HStack key={item.id} justifyContent='space-between' py={1} >
                 <HStack>
-                  <Image width="70px" height="70px" borderRadius='10px' src={item.image} aspectRatio={4 / 3} fit="cover" alt={item.title} />
+                  <Image width="60px" height="50px" borderRadius='10px' src={item.image} aspectRatio={4 / 3} fit="cover" alt={item.title} />
                   <VStack alignItems='flex-start'>
-                    <Text>{item.title}</Text>
+                    <Text fontSize="14px">{item.title}</Text>
                     <HStack borderWidth='1px' borderRadius='7px'>
-                      <Button lineHeight={0} p={2} variant='outline' size="xs" onClick={() => updateCartItemQuantity(item.categoryID, -1)}>-</Button>
+                      <Button lineHeight={0} p={1} variant='outline' size="xs" onClick={() => updateCartItemQuantity(item.categoryID, -1)}>-</Button>
                       <Text fontSize='12px'>{item.quantity}</Text>
-                      <Button p={2} lineHeight={0} variant='outline' borderRadius='7px' size="xs" onClick={() => updateCartItemQuantity(item.categoryID, 1)}>+</Button>
+                      <Button p={1} lineHeight={0} variant='outline' borderRadius='7px' size="xs" onClick={() => updateCartItemQuantity(item.categoryID, 1)}>+</Button>
                     </HStack>
                   </VStack>
                 </HStack>
 
                 <VStack alignItems='flex-end'>
-                  <IconButton size='xs' variant='outline' onClick={()=> deleteCartItem(item.categoryID)}>
-                    <MdOutlineDeleteOutline size='20px' />
+                  <IconButton size='xs' variant='outline' onClick={() => deleteCartItem(item.categoryID)}>
+                    <MdOutlineDeleteOutline color='#fe4949' size='18px' />
                   </IconButton>
                   <Text>{`$${item.price}.00`}</Text>
                 </VStack>
@@ -57,7 +125,7 @@ export default function Cart({ cart, updateCartItemQuantity,deleteCartItem }) {
           }
         </Box>
 
-        <Separator variant='solid' />
+        {/* <Separator variant='solid' />
         <Box py={2}>
           <HStack justifyContent='space-between' pt='5px'>
             <Text fontSize='16px'>Subtotal </Text>
@@ -103,13 +171,13 @@ export default function Cart({ cart, updateCartItemQuantity,deleteCartItem }) {
         <Separator variant='dashed' />
         <HStack>
           <Button cursor='pointer' visual="solid">
-            Print Receipt
+            Invoice
           </Button>
 
           <Button cursor='pointer' display='flex' justifyContent='center' alignItems='center' visual="solid">
             Place Order 
           </Button>
-        </HStack>
+        </HStack> */}
       </Box>
     </>
   )

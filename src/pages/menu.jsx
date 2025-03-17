@@ -95,8 +95,8 @@ export default function Menu() {
 
   return (
     <>
-      <Grid templateColumns='repeat(7,1fr)' gap={4}>
-        <GridItem colSpan={cart.length > 0 ? 5 : 7} pr={cart.length > 0 ? 0 : 4}>
+      <Grid templateColumns='repeat(7,1fr)' gap={4} pl={5}>
+        <GridItem colSpan={5}>
           <Box w='100%' >
             <Flex>
               <HStack>
@@ -179,13 +179,13 @@ export default function Menu() {
             </Grid>
           </Box>
         </GridItem>
-        {cart.length > 0 && (
+          {
             <GridItem colSpan={2}>
               <Box bg='#fff' height='100vh'>
                 <Cart deleteCartItem={deleteCartItem} updateCartItemQuantity={updateCartItemQuantity} cart={cart} />
               </Box>
-            </GridItem>
-  )}
+          </GridItem>
+          }
       </Grid>
 
     </>

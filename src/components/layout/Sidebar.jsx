@@ -21,12 +21,6 @@ export default function Sidebar() {
 
         <Box h="1px" bg="#e1e1e1" w="100%" my={4} />  
 
-        <Box p={1}>
-          <Button cursor='pointer' display='flex' justifyContent='center' alignItems='center' w='100%' visual="solid">
-            <IoMdAdd /> Create new order
-          </Button>
-        </Box>
-
         <Box p={5} gap={5}>
           <Heading pb={5} size='sm' fontSize='15px' fontWeight="400" color="#6E7784">
             MAIN MENU
