@@ -36,7 +36,7 @@ export default function Sidebar() {
               alignItems="center" 
               gap="8px"
               w="100%"
-              py={15}
+              py={3}
               pl={5}
               borderRadius="10px"
               transition="background 0.2s ease-in-out"
@@ -55,7 +55,7 @@ export default function Sidebar() {
               alignItems="center" 
               gap="8px"
               w="100%"
-              py={15}
+              py={3}
               pl={5}
               borderRadius="10px"
               transition="background 0.2s ease-in-out"
@@ -74,13 +74,77 @@ export default function Sidebar() {
               alignItems="center" 
               gap="8px"
               w="100%"
-              py={15}
+              py={3}
               pl={5}
               borderRadius="10px"
               transition="background 0.2s ease-in-out"
             >
               <Image src={Menu} boxSize="20px"/> 
               Menu
+            </Box>
+          </VStack>
+        </Box>
+
+        <Box p={5} gap={5}>
+          <Heading pb={5} size='sm' fontSize='15px' fontWeight="400" color="#6E7784">
+          OFFERINGS
+          </Heading>
+          <VStack alignItems='flex-start' w="100%">
+            <Box 
+              as={Link} 
+              to="/" 
+              _hover={{ bg: "#e6e6e6", color: "#000000" }} 
+              textDecoration="none" 
+              color="#5E5E5E" 
+              display="flex" 
+              alignItems="center" 
+              gap="8px"
+              w="100%"
+              py={3}
+              pl={5}
+              borderRadius="10px"
+              transition="background 0.2s ease-in-out"
+            >
+              <Image src={DashboardIcons} boxSize="20px"/> 
+              Reservation
+            </Box>
+
+            <Box 
+              as={Link} 
+              to="tables" 
+              _hover={{ bg: "#e6e6e6", color: "#000000" }} 
+              textDecoration="none" 
+              color="#5E5E5E" 
+              display="flex" 
+              alignItems="center" 
+              gap="8px"
+              w="100%"
+              py={3}
+              pl={5}
+              borderRadius="10px"
+              transition="background 0.2s ease-in-out"
+            >
+              <Image src={Tables} boxSize="20px"/> 
+              Customers
+            </Box>
+
+            <Box 
+              as={Link} 
+              to="menu" 
+              _hover={{ bg: "#e6e6e6", color: "#000000" }} 
+              textDecoration="none" 
+              color="#5E5E5E" 
+              display="flex" 
+              alignItems="center" 
+              gap="8px"
+              w="100%"
+              py={3}
+              pl={5}
+              borderRadius="10px"
+              transition="background 0.2s ease-in-out"
+            >
+              <Image src={Menu} boxSize="20px"/> 
+              Invoices
             </Box>
           </VStack>
         </Box>
