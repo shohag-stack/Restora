@@ -66,7 +66,7 @@ export default function Sidebar() {
 
             <Box 
               as={Link} 
-              to="menu" 
+              to="foodMenus" 
               _hover={{ bg: "#e6e6e6", color: "#000000" }} 
               textDecoration="none" 
               color="#5E5E5E" 
@@ -80,7 +80,7 @@ export default function Sidebar() {
               transition="background 0.2s ease-in-out"
             >
               <Image src={Menu} boxSize="20px"/> 
-              Menu
+              foodMenu
             </Box>
           </VStack>
         </Box>

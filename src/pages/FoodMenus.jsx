@@ -1,24 +1,13 @@
-import React, {useEffect} from 'react'
-import { Box, HStack, Separator, Flex, Text, Input, Grid, GridItem, VStack } from '@chakra-ui/react'
+import React, {useRef} from 'react'
+import { Box, HStack, Separator, Flex, Text, Input, Grid, GridItem, Select,Portal,Dialog ,createListCollection} from '@chakra-ui/react'
 import { Button } from '../components/ui/button'
 import { IoMdAdd } from "react-icons/io";
 import { InputGroup } from "@/components/ui/input-group"
-import {
-  DialogActionTrigger,
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "../components/ui/dialog"
 import { useState } from "react"
 import MenuCategory from '../components/ui/MenuCategory';
 import { LuSearch } from "react-icons/lu"
 import menuItemData from '@/Data/menuItemData';
-import category from "../Data/menuData";
+import menuData from "../Data/menuData";
 import MenuItem from '@/components/ui/MenuItem';
 import {
   FileUploadList,
@@ -28,22 +17,43 @@ import {
 import { HiUpload } from 'react-icons/hi';
 import Cart from '@/components/ui/Cart';
 
-export default function Menu() {
+export default function FoodMenus() {
 
   const [open, setOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(1)
-  const [formData, setFormData] = useState('')
   const [cart,setCart] = useState([])
   const [menu,setMenu] = useState(menuItemData)
-  const [menuData, setMenuData] = useState(category)
   const [inputValue,setInputValue] = useState('')
   const filteredItems = selectedCategory === 1 ? menu : menu.filter(item => item.categoryID === Number(selectedCategory));
+ 
+  const contentRef = useRef(null)
+  const [selectedMenu, setSelectedMenu] = useState("")
+  const [menuName, setMenuName] = useState("")
 
-
-
+  console.log(selectedMenu)
 
   const handleMenuSubmit = () => {
-    console.log(formData)
+    if (!menuName || !selectedMenu) {
+      alert("Please enter a Menu name and select a category")
+      return
+    }
+
+    const newMenu = {
+      id: menuItemData.length + 1,
+      categoryID: selectedMenu.id,
+      category: selectedMenu.label,
+      title: menuName,
+      basePrice: 0,
+      price: 0,
+      image: "https://placehold.co/100x100"  // Default placeholder image
+    }
+    
+    menuItemData.push(newMenu)  // Update the menu state to reflect changes
+    const updatedMenuData = menuData.map(item => item.id === selectedMenu.id ? {...item, count: (item.count || 0 ) +1} : item)
+    Object.assign(menuData, updatedMenuData)
+    setMenuName("")
+    setSelectedMenu("")
+    setOpen(false)  // Close the dialog after submission
   }
 
   const handleInput = (e)=> {
@@ -59,12 +69,11 @@ export default function Menu() {
     setCart((prevCart)=>{
       const existingItem = prevCart.find( cartItem => cartItem.categoryID === item.categoryID)
       if (existingItem) {
-        console.log(`existing item ${existingItem}`)
         return prevCart.map(cartItem => cartItem.categoryID === item.categoryID ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem);
       }
 
       else {
-        return [...prevCart, {...item, quantity: 1}];
+        return [...prevCart, {...item, quantity: 1}]; 
       }
     })
   }
@@ -107,38 +116,58 @@ export default function Menu() {
                 <Text color='#F54D2C'>
                   {filteredItems.length} Foods
                 </Text>
-                <DialogRoot lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
-                  <DialogTrigger asChild>
-                    <Button visual="outline" size='sm' display='flex' justifyContent='center' alignItems='center' cursor='pointer'>
-                      <IoMdAdd /> Add Recipe
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Create Recipe</DialogTitle>
-                    </DialogHeader>
-                    <DialogBody>
-                      <VStack gap={1}>
-                        <Input placeholder='Recipe Name' type='text' value={formData} onChange={(e) => setFormData(e.target.value)} />
-                        <FileUploadRoot>
-                          <FileUploadTrigger>
-                            <Button visual="outline" size='sm' display='flex' justifyContent='center' alignItems='center'>
-                              <HiUpload /> Add icon
-                            </Button>
-                          </FileUploadTrigger>
-                          <FileUploadList />
-                        </FileUploadRoot>
-                      </VStack>
-                    </DialogBody>
-                    <DialogFooter>
-                      <DialogActionTrigger asChild>
-                        <Button visual="outline" >Cancel</Button>
-                      </DialogActionTrigger>
-                      <Button visual="solid" onClick={handleMenuSubmit} >Save</Button>
-                    </DialogFooter>
-                    <DialogCloseTrigger />
-                  </DialogContent>
-                </DialogRoot>
+                <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
+                    <Dialog.Trigger asChild>
+                      <Button visual="outline" size="sm">Add menu</Button>
+                    </Dialog.Trigger>
+                    <Portal>
+                      <Dialog.Backdrop />
+                      <Dialog.Positioner>
+                        <Dialog.Content ref={contentRef}>
+                          <Dialog.Header>
+                            <Dialog.Title>Add New Menu</Dialog.Title>
+                          </Dialog.Header>
+                          <Dialog.Body pb="4" spaceY={4}>
+                            <Input type="text" value={menuName} onChange={(e)=> setMenuName(e.target.value)} placeholder="Enter menu name" />
+                                <Select.Root
+                                collection={frameworks}
+                                size="sm"
+                                value={selectedMenu}
+                                onValueChange={({ items: [selectedItem] }) => setSelectedMenu(selectedItem)}
+                                >
+                                  <Select.HiddenSelect />
+                                  <Select.Label>Choose Food Category</Select.Label>
+                                  <Select.Control>
+                                    <Select.Trigger>
+                                      <Select.ValueText placeholder="Select framework" />
+                                    </Select.Trigger>
+                                    <Select.IndicatorGroup>
+                                      <Select.Indicator />
+                                    </Select.IndicatorGroup>
+                                  </Select.Control>
+                                  <Portal container={contentRef}>
+                                    <Select.Positioner>
+                                      <Select.Content>
+                                        {frameworks.items.map((item) => (
+                                          <Select.Item item={item} key={item.value}>
+                                            {item.label}
+                                          </Select.Item>
+                                        ))}
+                                      </Select.Content>
+                                    </Select.Positioner>
+                                  </Portal>
+                                </Select.Root>
+                          </Dialog.Body>
+                          <Dialog.Footer>
+                            <Dialog.ActionTrigger asChild>
+                              <Button visual="outline">Cancel</Button>
+                            </Dialog.ActionTrigger>
+                            <Button visual="solid" onClick={handleMenuSubmit}>Save</Button>
+                          </Dialog.Footer>
+                        </Dialog.Content>
+                      </Dialog.Positioner>
+                    </Portal>
+                </Dialog.Root>
               </HStack>
             </Flex>
           </Box>
@@ -187,7 +216,16 @@ export default function Menu() {
           </GridItem>
           }
       </Grid>
-
     </>
   )
 }
+
+
+const frameworks = createListCollection({
+  items: menuData.map(item => ({
+    id: item.id,
+    label: item.title,
+    value: item.id,
+    categoryID: item.id,
+  }))
+})

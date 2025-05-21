@@ -26,10 +26,25 @@ import {tables} from "../Data/tables"
 export default function Tables() {
   const [open, setOpen] = useState(false)
   const [formData,setFormData] = useState("")
-
+  const [seats,setSeats] = useState("")
 
   const handleMenuSubmit = () => {
     console.log(formData)
+    if (!formData) {
+      alert("Please enter a table name")
+      return
+    }
+
+    const newTable = {
+      id: tables.length + 1,
+      title: formData,
+      status: "available",
+      image: "",
+      seats: 2,
+    }
+    tables.push(newTable)
+    setFormData("")
+    setOpen(false)
   }
 
   const deleteItem =()=>{
@@ -60,7 +75,8 @@ export default function Tables() {
                       </DialogHeader>
                       <DialogBody>
                         <VStack gap={1}>
-                          <Input placeholder='Recipe Name' type='text' value={formData} onChange={(e) => setFormData(e.target.value)} />
+                          <Input placeholder='Table Name' type='text' value={formData} onChange={(e) => setFormData(e.target.value)} />
+                          <Input placeholder='seats' type="number" value={seats} onChange={(e) => setSeats(e.target.value)} />
                           <FileUploadRoot>
                             <FileUploadTrigger>
                               <Button visual="outline" size='sm' display='flex' justifyContent='center' alignItems='center'>
@@ -84,7 +100,7 @@ export default function Tables() {
               </HStack>
             </Box>
   
-            <Box width='100%' height="80vh" overflowY="auto" pr={5} pl={5}>
+            <Box width='100%' height="78vh" overflowY="auto" pr={5} pl={5}>
               <Grid templateColumns="repeat(5, 1fr)" gap={2}>
                 {
                   tables.length > 0 ? (tables.map((item) =>

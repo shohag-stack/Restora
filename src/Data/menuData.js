@@ -35,11 +35,13 @@ const getCategoryCounts = () => {
 const generateMenuData = () => {
   const categoryCounts = getCategoryCounts();
 
-  return categoryDefinitions.map(category => ({
+  return categoryDefinitions.map(category => (
+    {
     ...category,
     // Use the category's own ID to look up its count
     count: category.isAll ? menuItemData.length : (categoryCounts[category.id] || 0)
-  }));
+  }
+));
 };
 
 const menuData = generateMenuData();

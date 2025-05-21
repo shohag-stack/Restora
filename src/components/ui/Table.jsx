@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Button, Image, Text, Menu, Portal, HStack, VStack } from '@chakra-ui/react'
 import { CiMenuKebab } from "react-icons/ci";
 
-export default function Table({ title, icon, status, onAddToCart, onDeleteItems, seats }) {
+export default function Table({ title, icon, status, onAddToCart, onDeleteItems, seats, onSelect }) {
 
 
 
@@ -25,6 +25,7 @@ export default function Table({ title, icon, status, onAddToCart, onDeleteItems,
                 justifyContent="left"
                 alignItems="left"
                 overflow="hidden"
+                onClick={onSelect}
 
             >
                 <Box p={3}>

@@ -1,6 +1,6 @@
 
 import './App.css'
-import { Dashboard, Orders, Menu, Tables } from "./pages/index.js"
+import { Dashboard, Orders, FoodMenus, Tables } from "./pages/index.js"
 import MainLayout from './components/layout/MainLayout'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
@@ -13,7 +13,7 @@ function App() {
           <Route path="/" element={<MainLayout />} >
             <Route index element={<Dashboard />} />
             <Route path='orders' element={<Orders />} />
-            <Route path='menu' element={<Menu />} />
+            <Route path='foodMenus' element={<FoodMenus/>} />
             <Route path='tables' element={<Tables />} />
           </Route>
         </Routes>
