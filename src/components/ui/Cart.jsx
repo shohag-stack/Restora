@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog"
-import Table from '@/components/ui/table';
+import Table from '../ui/Table';
 import { tables } from "../../Data/tables"
 
 export default function Cart({ cart, updateCartItemQuantity, deleteCartItem }) {
