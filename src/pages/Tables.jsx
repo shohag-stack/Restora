@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../components/ui/dialog"
-import Table from '@/components/ui/table';
+import Table from '../components/ui/Table'
 import {
   FileUploadList,
   FileUploadRoot,
