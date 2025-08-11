@@ -25,12 +25,10 @@ export default function FoodMenus() {
   const [menu,setMenu] = useState(menuItemData)
   const [inputValue,setInputValue] = useState('')
   const filteredItems = selectedCategory === 1 ? menu : menu.filter(item => item.categoryID === Number(selectedCategory));
- 
   const contentRef = useRef(null)
   const [selectedMenu, setSelectedMenu] = useState("")
   const [menuName, setMenuName] = useState("")
 
-  console.log(selectedMenu)
 
   const handleMenuSubmit = () => {
     if (!menuName || !selectedMenu) {
@@ -82,8 +80,7 @@ export default function FoodMenus() {
   const deleteItem = (id)=> {
     setMenu(prevMenu => prevMenu.filter(item => item.categoryID !== id))
     setCart(prevCart => prevCart.filter(item => item.categoryID !== id))
-    setMenuData(prevMenu => prevMenu.map(item => item.id === id ? {...item, count: Math.max(0, item.count - 1)} : item))
-    console.log("clicked")
+    setMenu(prevMenu => prevMenu.map(item => item.id === id ? {...item, count: Math.max(0, item.count - 1)} : item))
   }
 
 
@@ -219,7 +216,6 @@ export default function FoodMenus() {
     </>
   )
 }
-
 
 const frameworks = createListCollection({
   items: menuData.map(item => ({
