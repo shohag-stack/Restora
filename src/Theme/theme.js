@@ -1,37 +1,37 @@
-import { createSystem, defaultBaseConfig, defineConfig ,} from "@chakra-ui/react";
-import { buttonRecipe } from "./recipe/button.recipe"
+import { createSystem, defaultBaseConfig, defineConfig } from "@chakra-ui/react";
 
 const customConfig = defineConfig({
+  cssVarsRoot: ":where(:root, :host)",
+  cssVarsPrefix: "ck",
+
   globalCss: {
     "html, body": {
       margin: 0,
       padding: 0,
       fontFamily: "Inter, system-ui, sans-serif",
     },
-    cssVarsRoot: ":where(:root, :host)",
-    cssVarsPrefix: "ck",
-
-    'h1': {
-      fontSize: 50,
-      fontWeight: '400',
-    }, 
-    'h2': {
-      fontSize: 30,
-      fontWeight: '400',
+    h1: {
+      fontSize: "50px",
+      fontWeight: "400",
     },
-    'h3': {
-      fontSize: 20,
-      fontWeight: '400',
+    h2: {
+      fontSize: "30px",
+      fontWeight: "400",
     },
-    'h4': {
-      fontSize: 18,
-      fontWeight: '400',
+    h3: {
+      fontSize: "20px",
+      fontWeight: "400",
     },
-    'h5': {
-      fontSize: 16,
-      fontWeight: '400',
-    }
+    h4: {
+      fontSize: "18px",
+      fontWeight: "400",
+    },
+    h5: {
+      fontSize: "16px",
+      fontWeight: "400",
+    },
   },
+
   theme: {
     tokens: {
       colors: {
@@ -41,7 +41,7 @@ const customConfig = defineConfig({
           200: { value: "#FFA599" },
           300: { value: "#FF8071" },
           400: { value: "#FF5C4A" },
-          500: { value: "#F54D2C" }, // Your primary color
+          500: { value: "#F54D2C" },
           600: { value: "#C93E23" },
           700: { value: "#9D2F1A" },
           800: { value: "#711F10" },
@@ -49,7 +49,6 @@ const customConfig = defineConfig({
         },
       },
     },
-
     semanticTokens: {
       colors: {
         brand: {
@@ -62,10 +61,6 @@ const customConfig = defineConfig({
           focusRing: { value: "{colors.brand.500}" },
         },
       },
-    },
-
-    recipes: {
-      Button: buttonRecipe,
     },
   },
 });

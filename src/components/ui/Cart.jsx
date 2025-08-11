@@ -78,7 +78,10 @@ export default function Cart({ cart, updateCartItemQuantity, deleteCartItem }) {
       <Box p={5}>
 
         <Box>
-          <VStack>
+          <VStack alignItems={'flex-start'} spacing={4}>
+            <Heading pb={1}>
+              Customer Details
+            </Heading>
             <HStack>
               <Input type='text' name='name' placeholder="Customer Name" value={customerName} onChange={(e) => setCustomerName(e.target.value)}></Input>
               <Input type="number" placeholder="+88" onChange={(e)=>setCustomerPhone(e.target.value)}></Input>
@@ -133,13 +136,16 @@ export default function Cart({ cart, updateCartItemQuantity, deleteCartItem }) {
           </VStack>
         </Box>
 
-        <Heading pb={2}>
+        <Heading pb={2} pt={5}>
           Cart Details
         </Heading>
+        <Separator variant='solid' />
 
-        <Box h='100px' overflow='auto'>
+        <Box h='200px' overflow='auto'>
           {cart.length === 0 ? (
-            <Text>No items in cart</Text>
+            <Box w='100%' h='100%' display='flex' justifyContent='center' alignItems='center'> 
+              <Heading>No items in cart</Heading>
+            </Box>
 
           ) : (
             cart.map(item => (
@@ -213,8 +219,8 @@ export default function Cart({ cart, updateCartItemQuantity, deleteCartItem }) {
           </HStack>
         </Box>
         <Separator variant='dashed' />
-        <HStack>
-          <Button cursor='pointer' visual="solid">
+        <HStack py={4}>
+          <Button variant={"outline"} cursor='pointer'>
             Invoice
           </Button>
 

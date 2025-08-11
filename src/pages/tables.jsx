@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Box, HStack, Separator, Flex, Text, Input, Grid, VStack } from '@chakra-ui/react'
-import { Button } from '../components/ui/button'
+import { Button } from '@chakra-ui/react'
 import { IoMdAdd } from "react-icons/io";
 import {
   DialogActionTrigger,

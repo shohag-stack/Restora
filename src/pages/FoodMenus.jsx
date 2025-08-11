@@ -1,13 +1,13 @@
 import React, {useRef} from 'react'
 import { Box, HStack, Separator, Flex, Text, Input, Grid, GridItem, Select,Portal,Dialog ,createListCollection} from '@chakra-ui/react'
-import { Button } from '../components/ui/button'
+import { Button } from '@chakra-ui/react';
 import { IoMdAdd } from "react-icons/io";
 import { InputGroup } from "@/components/ui/input-group"
 import { useState } from "react"
 import MenuCategory from '../components/ui/MenuCategory';
 import { LuSearch } from "react-icons/lu"
 import menuItemData from '@/Data/menuItemData';
-import menuData from "../Data/menuData";
+import menuData from "../Data/menuCatData";
 import MenuItem from '@/components/ui/MenuItem';
 import {
   FileUploadList,
@@ -103,7 +103,7 @@ export default function FoodMenus() {
     <>
       <Grid templateColumns='repeat(7,1fr)' gap={4} pl={5}>
         <GridItem colSpan={5}>
-          <Box w='100%' >
+          <Box w='100%' py={3} >
             <Flex>
               <HStack>
                 <h2 style={{ fontWeight: "400" }}>
@@ -115,7 +115,7 @@ export default function FoodMenus() {
                 </Text>
                 <Dialog.Root lazyMount open={open} onOpenChange={(e) => setOpen(e.open)}>
                     <Dialog.Trigger asChild>
-                      <Button visual="outline" size="sm">Add menu</Button>
+                      <Button variant={"surface"} visual="outline" size="sm">Add menu</Button>
                     </Dialog.Trigger>
                     <Portal>
                       <Dialog.Backdrop />
@@ -129,14 +129,15 @@ export default function FoodMenus() {
                                 <Select.Root
                                 collection={frameworks}
                                 size="sm"
-                                value={selectedMenu}
+                                // value={selectedMenu}
+                                defaultValue={frameworks[0]}
                                 onValueChange={({ items: [selectedItem] }) => setSelectedMenu(selectedItem)}
                                 >
                                   <Select.HiddenSelect />
                                   <Select.Label>Choose Food Category</Select.Label>
                                   <Select.Control>
                                     <Select.Trigger>
-                                      <Select.ValueText placeholder="Select framework" />
+                                      <Select.ValueText placeholder="Category" />
                                     </Select.Trigger>
                                     <Select.IndicatorGroup>
                                       <Select.Indicator />
