@@ -5,7 +5,7 @@ import { LuSearch } from 'react-icons/lu'
 import { Avatar } from "@chakra-ui/react"
 import {orders}  from '../Data/orders.js'
 
-export default function Orders() {
+export default function Orders () {
 
     const [inputValue, setInputValue] = useState('')
     const [order, setOrder] = useState(orders)    

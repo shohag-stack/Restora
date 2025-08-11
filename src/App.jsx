@@ -1,6 +1,9 @@
-
+import React from 'react'
 import './App.css'
-import { Dashboard, Orders, FoodMenus, Tables } from "./pages/index.js"
+import FoodMenus from './pages/FoodMenus'
+import Orders from './pages/Orders'
+import Tables from './pages/Tables'
+import Dashboard from './pages/Dashboard'
 import MainLayout from './components/layout/MainLayout'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
