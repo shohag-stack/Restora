@@ -14,8 +14,8 @@ export default function Table({ title, icon, status, onAddToCart, onDeleteItems,
                 textAlign="left"
                 bg='#fff'
                 _hover={{
-                    borderColor: "#F54D2C",
-                    bg: "#fef5f3",
+                    borderColor: `${status === "available" ? "#3D7C67" : '#c14f4f'}`,
+                    bg: `${status === "available" ? "#edfff9" : '#fff0f0'}`,
 
                 }}
                 borderWidth='1px'
