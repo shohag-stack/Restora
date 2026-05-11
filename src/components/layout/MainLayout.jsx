@@ -4,6 +4,7 @@ import Header from "./Header";
 import { Outlet, useLocation } from "react-router-dom";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import Greetings from "../ui/Greetings";
+import RaysoCta from "../cta/RaysoCta";
 
 export default function MainLayout() {
   const location = useLocation();
@@ -11,6 +12,7 @@ export default function MainLayout() {
   return (
     <>
       <Box w="100%" bg="#F9F9F9" height="100vh" overflow="hidden">
+        <RaysoCta />
         <Grid templateColumns="repeat(6, 1fr)">
           <GridItem colSpan={1}>
             <Sidebar />
